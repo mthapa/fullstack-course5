@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="ShoppingListCheckOffApp">
   <head>
     <title>Shopping List Check Off</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,29 +21,44 @@
         color: green;
       }
     </style>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
   </head>
 <body>
   <div class="container">
   <h1>Shopping List Check Off</h1>
- 
- Test 
+
   <div class="row">
 
     <!-- To Buy List -->
-    <div class="col-md-6">
+    <div id="list1" class="col-md-6" ng-controller="AlreadyBoughtShoppingController as list1" >
+
+      Test {{ message }}
+
      <h2>To Buy:</h2>
+    <!-- <ul>
+       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+     </ul>
+     -->
      <ul>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       <li ng-repeat="item in list1.items">
+          Buy  {{item.quantiy}} {{item.name}} <span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+       </li>
      </ul>
      <div class="emptyMessage">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6">
+    <div id="list2" class="col-md-6" ng-controller="AlreadyBoughtShoppingController as list2" >
      <h2>Already Bought:</h2>
-     <ul>
+    <!-- <ul>
        <li>Bought 10 cookies</li>
+     </ul> -->
+     <ul>
+       <li ng-repeat="item in list2.items">
+          Bought  {{item.quantiy}} {{item.name}}
+       </li>
      </ul>
      <div class="emptyMessage">Nothing bought yet.</div>
     </div>
