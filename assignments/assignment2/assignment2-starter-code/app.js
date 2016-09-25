@@ -43,9 +43,12 @@ AlreadyBoughtShoppingController.$inject = ['$scope', "ShoppingListCheckOffServic
 function AlreadyBoughtShoppingController ($scope, ShoppingListCheckOffService){
   var list2 = this;
   list2.items = ShoppingListCheckOffService.GetBoughtItems();
-  console.log("Count Items" + list2.items);
 
+  $scope.onReturnPurchaseButton = function onReturnPurchaseButton(index){
+        ShoppingListCheckOffService.ReturnItem(index);
+  }
 
+  
 }
 
 
@@ -71,6 +74,12 @@ function ShoppingListService() {
   service.RemoveItem = function (itemIndex) {
     boughtItems.push(buyItems[itemIndex]);
     buyItems.splice(itemIndex,1);    
+  };
+
+
+   service.ReturnItem = function (itemIndex) {
+    buyItems.push(boughtItems[itemIndex]);
+    boughtItems.splice(itemIndex,1);    
   };
 
 

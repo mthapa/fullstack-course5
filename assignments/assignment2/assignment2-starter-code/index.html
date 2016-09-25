@@ -34,11 +34,6 @@
     <div id="list1" class="col-md-6" ng-controller="ToBuyShoppingController as list1" >
       
      <h2>To Buy:</h2>
-    <!-- <ul>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-     </ul>
-     -->
      <ul>
        <li ng-repeat="item in list1.items">
           Buy  {{item.quantity}} {{item.name}}
@@ -60,6 +55,9 @@
      <ul>
        <li ng-repeat="item in list2.items">
           Bought  {{item.quantity}} {{item.name}}
+           <button class="btn btn-default" ng-click="onReturnPurchaseButton($index)"> 
+                <span class="glyphicon glyphicon-ok"></span> Return
+             </button>
        </li>
      </ul>
      <div ng-if="list2.items.length === 0" class="emptyMessage">Nothing bought yet.</div>
