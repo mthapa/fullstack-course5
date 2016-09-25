@@ -31,10 +31,8 @@
   <div class="row">
 
     <!-- To Buy List -->
-    <div id="list1" class="col-md-6" ng-controller="AlreadyBoughtShoppingController as list1" >
-
-      Test {{ message }}
-
+    <div id="list1" class="col-md-6" ng-controller="ToBuyShoppingController as list1" >
+      
      <h2>To Buy:</h2>
     <!-- <ul>
        <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
@@ -43,7 +41,11 @@
      -->
      <ul>
        <li ng-repeat="item in list1.items">
-          Buy  {{item.quantiy}} {{item.name}} <span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+          Buy  {{item.quantity}} {{item.name}}
+            <button class="btn btn-default" ng-click="onClickBuyButton($index)"> 
+                <span class="glyphicon glyphicon-ok"></span> Bought
+             </button>
+        </li>
        </li>
      </ul>
      <div class="emptyMessage">Everything is bought!</div>
@@ -57,7 +59,7 @@
      </ul> -->
      <ul>
        <li ng-repeat="item in list2.items">
-          Bought  {{item.quantiy}} {{item.name}}
+          Bought  {{item.quantity}} {{item.name}}
        </li>
      </ul>
      <div class="emptyMessage">Nothing bought yet.</div>

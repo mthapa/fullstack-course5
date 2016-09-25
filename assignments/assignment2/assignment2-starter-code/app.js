@@ -5,53 +5,48 @@
   angular.module('ShoppingListCheckOffApp',[])
   .controller('ToBuyShoppingController',ToBuyShoppingController)
   .controller('AlreadyBoughtShoppingController',AlreadyBoughtShoppingController)
-  .factory('ShoppingListFactory', ShoppingListFactory);
+  .provider('ShoppingListCheckOffService', ShoppingListServiceProvider);
+ 
 
   /*  ToBuyShoppingController */
 
-  ToBuyShoppingController.$inject = ["$scope","ShoppingListFactory"];
+  ToBuyShoppingController.$inject = ["$scope","ShoppingListCheckOffService"];
 
-  function ToBuyShoppingController ($scope, ShoppingListFactory){
-
-
-    $scope.message ="Hello!";
+  function ToBuyShoppingController ($scope, ShoppingListCheckOffService){
 
     var list1 = this;
-    var toBuyList = ShoppingListFactory();
-    list1.items = toBuyList.GetItems();
-
-    var shopingList = [
+    list1.items = ShoppingListCheckOffService.GetItems();
+    
+    var shoppingList = [
       ["Cookies",10],
       ["Sugary Drink",5],
       ["Pepto Bismol",2],
       ["Candy",15]
     ];
+  
 
-      toBuyList.AddItem("candy", 12);
+      var i = 0 ;
+      for(i ; i < shoppingList.length; i++){
+        ShoppingListCheckOffService.AddItem(shoppingList[i][0], shoppingList[i][1]);
+      }
 
-      console.log("Hello from controller");
-
-    for(i = 0 ; i < shopingList.length; i++){
-    //toBuyList.AddItem(shopingList[i][0], shopingList[i][1]);
-    console.log(shopingList[i][0]);
-  }
-
-
+      $scope.onClickBuyButton = function onClickBuyButton(index){
+        ShoppingListCheckOffService.RemoveItem(index);
+      }
   }
 
 
 /*  AlreadyBoughtShoppingController  */
 
-AlreadyBoughtShoppingController.$inject = ['$scope', "ShoppingListFactory"];
+AlreadyBoughtShoppingController.$inject = ['$scope', "ShoppingListCheckOffService"];
 
-function AlreadyBoughtShoppingController ($scope, ShoppingListFactory){
+function AlreadyBoughtShoppingController ($scope, ShoppingListCheckOffService){
   var list2 = this;
-  var alreadyBoughtList = ShoppingListFactory();
+  list2.items = ShoppingListCheckOffService.GetBoughtItems();
+  console.log("Count Items" + list2.items);
+
 
 }
-
-
-
 
 
 /* ShoppingListService */
@@ -59,37 +54,46 @@ function AlreadyBoughtShoppingController ($scope, ShoppingListFactory){
 function ShoppingListService() {
   var service = this;
 
-  var items = [];
+  var buyItems = [];
+  var boughtItems = [];
 
   service.AddItem = function (itemName, quantity) {
-      console.log("Hello from AddItem");
+
     var item  = {
       name: itemName,
       quantity: quantity
     };
 
-    items.push(item);
+    buyItems.push(item);
 
   };
 
   service.RemoveItem = function (itemIndex) {
-    items.splice(itemIndex,1);
+    boughtItems.push(buyItems[itemIndex]);
+    buyItems.splice(itemIndex,1);    
   };
 
 
   service.GetItems = function (){
-    return items;
+    return buyItems;
+  };
+
+  service.GetBoughtItems = function (){
+    return boughtItems;
   };
 
 }
 
-/* ShoppingListFactory */
+/* ShoppingListServiceProvider */
 
-function ShoppingListFactory(){
-  var factory = function () {
-    return new ShoppingListService();
+function ShoppingListServiceProvider() {
+  var provider = this;
+
+  provider.$get = function () {
+    var shoppingList = new ShoppingListService();
+
+    return shoppingList;
   };
-  return factory;
 }
 
 })();
