@@ -21,7 +21,9 @@
       ["Cookies",10],
       ["Sugary Drink",5],
       ["Pepto Bismol",2],
-      ["Candy",15]
+      ["Candy",15],
+	  ["Cake",5],
+	  ["Cinnamon Bar",13]	  
     ];
   
 
