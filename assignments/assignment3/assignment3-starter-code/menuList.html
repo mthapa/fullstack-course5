@@ -1,9 +1,9 @@
 <ol class="lead">
         <li ng-repeat="menu in list.items">
-           <h3> {{ menu.name }} </h3> 
+           <h3> {{ menu.name }}, {{ menu.short_name }}  </h3> 
            <h6> {{ menu.description }} </h6>           
             <button class="btn btn-danger" ng-click="list.onRemove({index:$index});" >Don't want this one!</button>
        </li>
 </ol>
 
-<div class="text-danger" ng-if="list.items.length==0">No menu selected!</div>
+<div class="text-danger" ng-if="list.items.length==0">Nothing Found!</div>

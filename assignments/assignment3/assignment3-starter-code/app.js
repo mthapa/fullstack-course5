@@ -43,8 +43,7 @@ function FoundItemsDirectiveController() {
     promise.then(function (response) {
       /* Return all menu if  searchTerm is empty */
       if (searchTerm == undefined){
-         items=response.data.menu_items;
-         menu.found = items;
+         menu.found = [];
          //console.log(items.length);
         return;
       }else{              
