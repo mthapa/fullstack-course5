@@ -9,25 +9,29 @@
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController (MenuSearchService) {
     var menu = this;
-
-    var items = [];
+    var items=[];
 
     menu.searchMenu = function (searchTerm) {
       console.log("search term "+ searchTerm);
     var promise = MenuSearchService.getMatchedMenuItems();
 
     promise.then(function (response) {
-      items.push('Book');
-      items.push('Pen');
-      menu.categories = items;
-      console.log("Menu Length", response.data);
+      menu.categories = response.data.menu_items;
+      items=[];
+
+      //Filter by the search term and push it into the array
+      for (var i = 1; i < menu.categories.length; i++){      
+        if (menu.categories[i]['description'].indexOf(searchTerm)!= -1){
+          items.push(menu.categories[i]);
+          console.log(menu.categories[i]['description']);
+        }        
+      }  
+      menu.found = items;
     })
     .catch(function (error) {
       console.log(error);
     })
     };
-
-
    
   }
 
