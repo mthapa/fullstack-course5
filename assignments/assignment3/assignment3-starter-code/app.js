@@ -35,7 +35,7 @@ function FoundItemsDirectiveController() {
   function NarrowItDownController (MenuSearchService) {
     var menu = this;
     var items=[];
-
+    
     menu.searchMenu = function (searchTerm) {
       console.log("search term "+ searchTerm);
     var promise = MenuSearchService.getMatchedMenuItems();
@@ -72,7 +72,6 @@ function FoundItemsDirectiveController() {
     menu.removeMenu = function (index){
       items.splice(index,1);
     };
-
    
   }
 
