@@ -16,22 +16,38 @@
     var promise = MenuSearchService.getMatchedMenuItems();
 
     promise.then(function (response) {
-      menu.categories = response.data.menu_items;
-      items=[];
+      /* Return all menu if  searchTerm is empty */
+      if (searchTerm == undefined){
+         items=response.data.menu_items;
+         menu.found = items;
+         //console.log(items.length);
+        return;
+      }else{              
+        menu.categories = response.data.menu_items;
+        items=[];
 
-      //Filter by the search term and push it into the array
-      for (var i = 1; i < menu.categories.length; i++){      
-        if (menu.categories[i]['description'].indexOf(searchTerm)!= -1){
-          items.push(menu.categories[i]);
-          console.log(menu.categories[i]['description']);
-        }        
-      }  
-      menu.found = items;
-    })
+        //Filter by the search term and push it into the array
+        for (var i = 1; i < menu.categories.length; i++){      
+          if (menu.categories[i]['description'].indexOf(searchTerm)!= -1){
+            items.push(menu.categories[i]);         
+          }        
+        }  
+        //console.log(items.length);
+        menu.found = items;
+      }
+    }
+    )
     .catch(function (error) {
       console.log(error);
     })
     };
+
+
+    /* Remove from the found */
+    menu.removeMenu = function (index){
+      items.splice(index,1);
+    };
+
    
   }
 
