@@ -22,23 +22,22 @@
     <div class="clearfix"></div>
 
    
-     <ol class="lead">
+    <!-- <ol class="lead">
         <li ng-repeat="menu in narrowDown.found">
            <h3> {{ menu.name }} </h3> 
            <h6> {{ menu.description }} </h6>
            <button class="btn btn-primary" ng-click="narrowDown.removeMenu($index)" >Don't want this one!</button>
         </li>
       </ol>
-     </div>
+      -->
     
 
     <!-- Bonus loader (see Bonus section of the assignment) -->
     <items-loader-indicator></items-loader-indicator>
 
     <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+    <found-items items="narrowDown.found" on-remove="narrowDown.removeMenu(index)"></found-items>
   </div>
-
   
 
 </body>

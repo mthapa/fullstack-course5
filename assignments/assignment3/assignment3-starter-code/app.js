@@ -3,9 +3,34 @@
   angular.module('NarrowItDownApp',[])
   .controller('NarrowItDownController',NarrowItDownController)
   .service('MenuSearchService', MenuSearchService)
+  .directive('foundItems', FoundItemsDirective)
   .constant('MenuBasePath', "https://davids-restaurant.herokuapp.com");
 
   
+
+/* FoundItemsDirective */
+
+function FoundItemsDirective() {
+  var ddo = {
+    templateUrl: 'menuList.html',
+    scope: {
+      items: '<',       
+      onRemove: '&'
+    },
+    controller: FoundItemsDirectiveController,
+    controllerAs: 'list',
+    bindToController: true
+  };
+
+  return ddo;
+} 
+
+function FoundItemsDirectiveController() {
+  var list = this;  
+}
+
+
+  /* NarrowItDownController  */
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController (MenuSearchService) {
     var menu = this;
@@ -28,7 +53,7 @@
 
         //Filter by the search term and push it into the array
         for (var i = 1; i < menu.categories.length; i++){      
-          if (menu.categories[i]['description'].indexOf(searchTerm)!= -1){
+          if (menu.categories[i]['description'].indexOf(searchTerm.toLowerCase())!= -1){
             items.push(menu.categories[i]);         
           }        
         }  
