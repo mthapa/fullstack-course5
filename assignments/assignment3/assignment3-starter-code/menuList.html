@@ -1,0 +1,9 @@
+<ol class="lead">
+        <li ng-repeat="menu in list.items">
+           <h3> {{ menu.name }} </h3> 
+           <h6> {{ menu.description }} </h6>           
+            <button class="btn btn-danger" ng-click="list.onRemove({index:$index});" >Don't want this one!</button>
+       </li>
+</ol>
+
+<div class="text-danger" ng-if="list.items.length==0">Didn't find any menu matching your search criteria!</div>
